@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caluclator</title>
+</head>
+<body>
+    <h1>This is calculator</h1>
+    <form  method="post">    
+        {%csrf_token%}
+        <input type="text" name = "first_name" placeholder="Enter first name">
+        <input type="text" name = "last_name" placeholder="Enter second name">
+
+        <button>Submit</button>
+        
+    </form>
+    {%if first_name and last_name%}
+    <h1>Welcome {{first_name}} {{last_name}}</h1>
+    {%endif%}
+</body>
+</html>
