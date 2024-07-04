@@ -9,14 +9,25 @@
     <h1>This is calculator</h1>
     <form  method="post">    
         {%csrf_token%}
-        <input type="text" name = "first_name" placeholder="Enter first name">
-        <input type="text" name = "last_name" placeholder="Enter second name">
+        <input type="text" name = "first_name" value ="{%if name_by_get_method%}{{name_by_get_method}}{%endif%}" placeholder="Enter first name">
+        <input type="text" name = "last_name" value = "{%if last_name_by_get_method%}{{last_name_by_get_method}}{%endif%}" placeholder="Enter second name">
 
         <button>Submit</button>
         
     </form>
+
+    <br>
+    <br>
+
+    <form action="" method="get">
+        <input name = "first_number" type="text">
+        <input name = "second_number" type="text">
+        <button>submit</button>
+    </form>
     {%if first_name and last_name%}
     <h1>Welcome {{first_name}} {{last_name}}</h1>
     {%endif%}
+
+    <a href="/?last_name=adhikari&name=bisesh">click here to get last_name</a>
 </body>
 </html>
