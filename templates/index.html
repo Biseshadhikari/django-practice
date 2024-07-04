@@ -14,7 +14,11 @@
         <input type="text" placeholder="Enter the number of days" name = "days">
         <button>Add Todo</button>
     </form>
-    {{error}}
+<br>
+<br>
+    <a href="/">All</a>
+    <a href="/?status=completed">Completed task</a>
+    <a href="/?status=not_completed">Not completed task</a>
     {%for todolist in todolists%}
         {%if todolist.is_completed%}
         <h1 style="text-decoration: line-through;">{{todolist.title}}</h1>

@@ -28,6 +28,16 @@ def calculator(request):
 
 def index(request):
     todolists = Todolist.objects.all()
+    status = request.GET.get('status')
+    print(status)
+    
+    if status == None:
+        todolists = Todolist.objects.all()
+
+    elif status == "completed":
+        todolists = Todolist.objects.filter(is_completed = True)
+    else:
+        todolists = Todolist.objects.filter(is_completed = False)
     error = ""
     
     if request.method == "POST": 
@@ -42,6 +52,7 @@ def index(request):
         'todolists':todolists,
         'error':error
         }
+        
         
         return render(request,'index.html',context)
 
