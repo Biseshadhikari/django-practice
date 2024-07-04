@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from app.models import Todolist
 # Create your views here.
 
@@ -28,11 +28,21 @@ def calculator(request):
 
 def index(request):
     todolists = Todolist.objects.all()
-    names = ['bisesh','sushant','saroj']
-  
-    context = {
-        'todolists':todolists
-    }
-    return render(request,'index.html',context)
+    error = ""
+    
+    if request.method == "POST": 
+        title = request.POST.get('todolist') 
+        days = request.POST.get('days')
+        Todolist.objects.create(title = title,days = days,is_completed = False)
+        return redirect('/')
+    
+    
+    else:   
+        context = {
+        'todolists':todolists,
+        'error':error
+        }
+        
+        return render(request,'index.html',context)
 
     

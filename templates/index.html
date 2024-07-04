@@ -6,10 +6,21 @@
     <title>Home page</title>
 </head>
 <body>
-    <h1>This is home page</h1>
+    <h1 style="color:red">This is home page</h1>
+    <h1 style="color:green;">Todolists</h1>
+    <form action="" method="post">
+        {%csrf_token%}
+        <input type="text" placeholder="Enter your todo here" name = "todolist">
+        <input type="text" placeholder="Enter the number of days" name = "days">
+        <button>Add Todo</button>
+    </form>
+    {{error}}
     {%for todolist in todolists%}
+        {%if todolist.is_completed%}
+        <h1 style="text-decoration: line-through;">{{todolist.title}}</h1>
+        {%else%}
         <h1>{{todolist.title}}</h1>
-        <p>{{}}</p>
+        {%endif%}
     {%endfor%}
 </body>
 </html>
