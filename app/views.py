@@ -29,7 +29,9 @@ def calculator(request):
 def index(request):
     todolists = Todolist.objects.all()
     status = request.GET.get('status')
-    print(status)
+    search = request.GET.get('search')
+    print(search)
+    
     
     if status == None:
         todolists = Todolist.objects.all()
@@ -39,6 +41,9 @@ def index(request):
     else:
         todolists = Todolist.objects.filter(is_completed = False)
     error = ""
+    if search: 
+        todolists = Todolist.objects.filter(title = search)
+    print(todolists)
     
     if request.method == "POST": 
         title = request.POST.get('todolist') 
