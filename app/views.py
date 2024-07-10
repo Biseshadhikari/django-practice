@@ -30,7 +30,7 @@ def index(request):
     todolists = Todolist.objects.all()
     status = request.GET.get('status')
     search = request.GET.get('search')
-    print(search)
+    # print(search)
     
     
     if status == None:
@@ -42,8 +42,8 @@ def index(request):
         todolists = Todolist.objects.filter(is_completed = False)
     error = ""
     if search: 
-        todolists = Todolist.objects.filter(title = search)
-    print(todolists)
+        todolists = Todolist.objects.filter(title__icontains = search)
+    # print(todolists)
     
     if request.method == "POST": 
         title = request.POST.get('todolist') 
@@ -62,3 +62,11 @@ def index(request):
         return render(request,'index.html',context)
 
     
+
+def tododetails(request,id):
+    todolist = Todolist.objects.get(id = id)
+    context = { 
+               'todolist':todolist
+               }
+    return render(request,'tododetails.html',context)
+

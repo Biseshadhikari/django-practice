@@ -25,9 +25,11 @@
     <a href="/?status=not_completed">Not completed task</a>
     {%for todolist in todolists%}
         {%if todolist.is_completed%}
-        <h1 style="text-decoration: line-through;">{{todolist.title}}</h1>
+        <a href = "/details/{{todolist.pk}}" style="text-decoration: line-through;">{{todolist.title}}</a>
+        <br>
         {%else%}
-        <h1>{{todolist.title}}</h1>
+        <a href = "/details/{{todolist.pk}}">{{todolist.title}}</a>
+        <br>
         {%endif%}
     {%endfor%}
 </body>
