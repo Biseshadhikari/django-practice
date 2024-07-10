@@ -70,3 +70,39 @@ def tododetails(request,id):
                }
     return render(request,'tododetails.html',context)
 
+
+
+
+def updateTodo(request,id):
+    todolist = Todolist.objects.get(id = id)
+    if request.method == "POST": 
+        title = request.POST.get('title') #hehehhaha
+        days = request.POST.get('days') #11
+        is_completed = request.POST.get('is_completed') #none
+        
+        todolist.title = title
+        todolist.days = days
+        
+        if is_completed == "on": 
+            todolist.is_completed = True
+        elif not is_completed:
+            todolist.is_completed = False
+        else:
+            todolist.is_completed = False
+           
+           
+        todolist.save()
+        
+        return redirect('/')
+        
+        
+        
+        
+
+        
+        
+    context = { 
+               'todolist':todolist
+               }
+    return render(request,'updateTodo.html',context)
+

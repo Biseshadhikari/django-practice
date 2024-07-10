@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Todo</title>
+</head>
+<body>
+    <form method="post">
+        {%csrf_token%}
+        <input type="text" name = "title" value = "{{todolist.title}}" >
+        <input type="text" name = "days" value = "{{todolist.days}}">
+        <label for="">is completed</label>
+        <input type="checkbox" name = "is_completed" {%if todolist.is_completed%}checked{%endif%}>
+        <button>Update</button>
+    </form>
+</body>
+</html>
