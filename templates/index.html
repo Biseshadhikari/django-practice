@@ -32,8 +32,10 @@
         <br>
         {%else%}
         <a href = "/details/{{todolist.pk}}">{{todolist.title}}</a>
-        <br>
+        
         {%endif%}
+        <a href="delete/{{todolist.pk}}" style="color:red;">delete</a>
+        <br>
     {%endfor%}
 </body>
 </html>

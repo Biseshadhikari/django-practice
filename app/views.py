@@ -94,15 +94,15 @@ def updateTodo(request,id):
         todolist.save()
         
         return redirect('/')
-        
-        
-        
-        
-
-        
-        
+          
     context = { 
                'todolist':todolist
                }
     return render(request,'updateTodo.html',context)
 
+
+def delete(request,id): 
+    todolist = Todolist.objects.get(id =id)
+    todolist.delete()
+    return redirect('/')
+    

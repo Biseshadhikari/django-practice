@@ -4,5 +4,6 @@ urlpatterns = [
     path('calculator',calculator),
     path('',index),
     path('details/<int:id>/',tododetails),
-    path('update/<int:id>/',updateTodo)
+    path('update/<int:id>/',updateTodo),
+    path('delete/<int:id>',delete)
 ]
