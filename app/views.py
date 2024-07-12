@@ -3,6 +3,7 @@ from app.models import Todolist
 # Create your views here.
 from django.contrib import messages
 
+
 def calculator(request): 
     first_name = None
     last_name = None
@@ -23,9 +24,6 @@ def calculator(request):
     
     
     return render(request,'calculator.html',context)
-
-
-
 
 # message framework
 def index(request):
@@ -109,3 +107,8 @@ def delete(request,id):
     todolist.delete()
     return redirect('/')
     
+
+
+
+def registration(request): 
+    return render(request,'registration.html')
