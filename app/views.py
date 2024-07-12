@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from app.models import Todolist
 # Create your views here.
-
+from django.contrib import messages
 
 def calculator(request): 
     first_name = None
@@ -26,13 +26,13 @@ def calculator(request):
 
 
 
+
+# message framework
 def index(request):
     todolists = Todolist.objects.all()
     status = request.GET.get('status')
     search = request.GET.get('search')
-    # print(search)
-    
-    
+
     if status == None:
         todolists = Todolist.objects.all()
 
@@ -48,6 +48,9 @@ def index(request):
     if request.method == "POST": 
         title = request.POST.get('todolist') 
         days = request.POST.get('days')
+        if title == "" or title is None or days == "" or days is None: 
+            messages.error(request,'All fields are required!!!')
+            return redirect('/')
         Todolist.objects.create(title = title,days = days,is_completed = False)
         return redirect('/')
     

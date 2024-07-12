@@ -10,9 +10,25 @@
   <body>
     <h1 style="color:red">This is home page</h1>
     <h1 style="color:green;">Todolists</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            {%if message.tags == "error"%}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><p style="color:red;">{{ message }}</p></li>
+            {%endif%}
+            {% endfor %}
+        </ul>
+    {% endif %}
     <form action="" method="post">
         {%csrf_token%}
         <input type="text" placeholder="Enter your todo here" name = "todolist">
+        {%if error%}
+        <p>
+            {%if error.title%}
+                {{error.title}}
+            {%endif%}
+        </p>
+        {%endif%}
         <input type="text" placeholder="Enter the number of days" name = "days">
         <button>Add Todo</button>
     </form>
