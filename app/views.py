@@ -1,8 +1,7 @@
 from django.shortcuts import render,redirect
 from app.models import Todolist
-# Create your views here.
 from django.contrib import messages
-
+from django.contrib.auth.models import User
 
 def calculator(request): 
     first_name = None
@@ -27,20 +26,20 @@ def calculator(request):
 
 # message framework
 def index(request):
-    todolists = Todolist.objects.all()
+    todolists = Todolist.objects.filter(user = request.user)
     status = request.GET.get('status')
     search = request.GET.get('search')
 
     if status == None:
-        todolists = Todolist.objects.all()
+        todolists = Todolist.objects.filter(user = request.user)
 
     elif status == "completed":
-        todolists = Todolist.objects.filter(is_completed = True)
+        todolists = Todolist.objects.filter(is_completed = True,user = request.user)
     else:
-        todolists = Todolist.objects.filter(is_completed = False)
+        todolists = Todolist.objects.filter(is_completed = False,user = request.user)
     error = ""
     if search: 
-        todolists = Todolist.objects.filter(title__icontains = search)
+        todolists = Todolist.objects.filter(title__icontains = search,user = request.user)
     # print(todolists)
     
     if request.method == "POST": 
@@ -49,7 +48,7 @@ def index(request):
         if title == "" or title is None or days == "" or days is None: 
             messages.error(request,'All fields are required!!!')
             return redirect('/')
-        Todolist.objects.create(title = title,days = days,is_completed = False)
+        Todolist.objects.create(title = title,days = days,is_completed = False,user = request.user)
         return redirect('/')
     
     
@@ -110,5 +109,12 @@ def delete(request,id):
 
 
 
-def registration(request): 
+def registration(request):
+    if request.method == "POST": 
+        first_name = request.POST.get('first_name') 
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        User.objects.create(first_name = first_name,last_name = last_name,username = username,password=password)
+        return redirect('/')
     return render(request,'registration.html')
